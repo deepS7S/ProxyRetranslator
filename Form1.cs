@@ -28,6 +28,10 @@ namespace ProxyRetranslator
         private SystemProxyManager _sysProxy;
         private ProxyServer _proxy;
 
+        // Снимок исходного состояния системного прокси Windows
+        private SystemProxyManager.Snapshot _sysProxySnapshot;
+        private bool _sysProxyModified;
+
         public Form1()
         {
             BuildUi();
@@ -81,7 +85,7 @@ namespace ProxyRetranslator
         private void BuildUi()
         {
             Text = "Proxy Retranslator";
-            ClientSize = new Size(730-20, 280-30);
+            ClientSize = new Size(730 - 20, 280 - 30);
             MinimumSize = new Size(730, 280);
             StartPosition = FormStartPosition.CenterScreen;
 
@@ -292,7 +296,12 @@ namespace ProxyRetranslator
                 lblStatus.Text = $"Статус: работает на порту {listenPort}";
 
                 if (chkAutoSystemProxy.Checked)
+                {
+                    // Сохраняем исходное состояние и только потом меняем
+                    _sysProxySnapshot = _sysProxy.Capture();
                     _sysProxy.Enable(listenPort);
+                    _sysProxyModified = true;
+                }
 
                 SetSettingsEnabled(false);
 
@@ -304,8 +313,7 @@ namespace ProxyRetranslator
                 _log.Log($"ОШИБКА запуска: {ex.Message}");
                 MessageBox.Show($"Не удалось запустить прокси: {ex.Message}");
 
-                if (chkAutoSystemProxy.Checked)
-                    _sysProxy.Disable();
+                RestoreSystemProxyIfNeeded();
             }
         }
 
@@ -316,8 +324,7 @@ namespace ProxyRetranslator
                 _proxy.Stop();
                 lblStatus.Text = "Статус: остановлен";
 
-                if (chkAutoSystemProxy.Checked)
-                    _sysProxy.Disable();
+                RestoreSystemProxyIfNeeded();
 
                 SetSettingsEnabled(true);
 
@@ -328,6 +335,16 @@ namespace ProxyRetranslator
             {
                 _log.Log($"ОШИБКА остановки: {ex.Message}");
             }
+        }
+
+        // Восстанавливаем исходное состояние системного прокси, если мы его меняли
+        private void RestoreSystemProxyIfNeeded()
+        {
+            if (!_sysProxyModified) return;
+
+            _sysProxy.Restore(_sysProxySnapshot);
+            _sysProxyModified = false;
+            _sysProxySnapshot = null;
         }
 
         private void btnAutoDetect_Click(object sender, EventArgs e)
@@ -357,10 +374,10 @@ namespace ProxyRetranslator
             if (_proxy.IsRunning)
             {
                 _proxy.Stop();
-
-                if (chkAutoSystemProxy != null && chkAutoSystemProxy.Checked)
-                    _sysProxy.Disable();
             }
+
+            // Возвращаем системный прокси в исходное состояние
+            RestoreSystemProxyIfNeeded();
         }
     }
 }
