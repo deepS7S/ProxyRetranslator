@@ -72,9 +72,26 @@
 
 ---
 
-## Скриншот
+## Скриншоты
 
-Add later
+<p align="center">
+   <img width="732" height="299" alt="image" src="https://github.com/user-attachments/assets/6dac0e71-f206-46ad-bc6a-335f887bc663" />
+   <br>
+   Скриншот 1 — окно в исходном состоянии, IP = 0.0.0.0, всё разблокировано
+</p>
+
+<p align="center">
+   <img width="729" height="295" alt="image" src="https://github.com/user-attachments/assets/e36b4c37-4178-491e-9ed5-07efa4e2863e" />
+   <br>
+   Скриншот 2 — окно после запуска прокси, поля серые, авто подстановка IP = 10.116.148.146
+</p>
+
+<p align="center">
+   <img width="729" height="532" alt="image" src="https://github.com/user-attachments/assets/3e7864de-e36c-4e9c-84b5-33d707f4d3cc" />
+   <br>
+   Скриншот 3 — окно с логом, прокси запущен и работает
+</p>
+
 
 ---
 
