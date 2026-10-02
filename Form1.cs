@@ -80,7 +80,7 @@ namespace ProxyRetranslator
         // ---------------------------------------------------------------
         private void BuildUi()
         {
-            Text = "Proxy Redirector";
+            Text = "Proxy Retranslator";
             ClientSize = new Size(730-20, 280-30);
             MinimumSize = new Size(730, 280);
             StartPosition = FormStartPosition.CenterScreen;
