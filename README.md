@@ -156,6 +156,10 @@ MIT — делайте что хотите, но без гарантий. Исп
 
 ## Благодарности
 
-- **HAPP** — за удобный локальный прокси.
+- **[HAPP](https://github.com/happ-proxy)** — за удобный локальный прокси.
 - Всем, кто тестировал автоопределение шлюзов на разных USB-модемах и другое:
-  - Егорик
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/besisworking">
+  <img src="https://img.shields.io/badge/ЕГОРИК-6e40c9?style=for-the-badge&logo=github&logoColor=white&labelColor=181717" alt="Егорик" height="40">
+</a>
